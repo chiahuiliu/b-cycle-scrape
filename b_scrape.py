@@ -1,9 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import csv
-import collections
-import re
-import pandas as pd
 import time
 import certifi
 import urllib3
@@ -20,10 +16,12 @@ def get_results(url, time_now):
     main_text = soup.find_all("div", attrs={'id': 'MainBg2'})
     str_main_text = str(main_text)
     time_now = str(time_now).split('.')[0]
-    filename = "./raw_data/"+time_now+".txt"
-    print('Successfully saved'+str(filename))
+    time_now = time_now.replace(' ', '_')
+    time_now = time_now.replace(':', '_')
+    filename = './raw_data/raw_data_'+str(time_now)+'.csv'
     with open(filename, "w") as f:
         f.write(str_main_text)
+        print('Successfully saved '+str(filename))
 
 if __name__ == '__main__':
     while(dt.datetime.now() < dt.datetime.strptime('2019-03-25  12:00:00', '%Y-%m-%d %H:%M:%S')):
